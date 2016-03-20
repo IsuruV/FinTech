@@ -10,6 +10,8 @@
 #include <array>
 #include<time.h>
 using namespace std;
+
+
 class messageHeader
 {
 private:
@@ -26,6 +28,7 @@ string timeStamp1;
 string timeStamp2;
 string transcationIdPartB;
 string y;
+
 public:
 messageHeader(){};
 messageHeader(string inputBuf)
@@ -134,9 +137,12 @@ string getPartID()
 return participantId;
 }
 };
+
+
 class longTrade : public messageHeader //inherits the getters and entities from
 message header.
 {
+ 
 private:
  string securitySymbol;
 string temporarySuffix;
@@ -160,6 +166,7 @@ string consolidHiLoID;
 string partOpHiLoLastID;
 string reserved3;
 string stopStockID;
+
 public:
 longTrade( string inputBuf2) // Default constructor includes messageHeader
 constructor so first 45 bites
@@ -242,9 +249,12 @@ string TRF()
 return tradeRprtFacID;
 }
 };
+
+
 class shortTrade : public messageHeader //inherits the getters and entities from message
 header.
 {
+ 
 private:
 string securitySymbol;
 string saleCondition;
@@ -255,6 +265,7 @@ string consolidHiLow;
 string partciOpenHiLow;
 string reserved;
 string transactionIDB;
+
 public:
 shortTrade(string inputbuf3) // Default constructor includes messageHeader
 constructor so first 45 bites
@@ -319,16 +330,20 @@ ss >> SC;
 return SC;
 }
 };
+
+
 int main()
 {
 string masterBuffer;
- ifstream inputFile;
+ifstream inputFile;
 ofstream outputFile;
 inputFile.open("C:/Users/ISURU_000/Desktop/THIS.txt",ios::in,ios::binary);
 outputFile.open("FixedFormat.txt");
+
 while(getline(inputFile,masterBuffer)) //Imports data line by line into the
 buffer
 {
+ 
 if ( masterBuffer[1] == 'I') // if the second character of every
 line is 'I',
 { // the line is loaded into a short trade
@@ -344,6 +359,7 @@ sTrade.getTradeVolume()+","+sTrade.getSaleCondition()<<endl;
 masterBuffer.clear();
 getline(inputFile,masterBuffer);
 }
+
 else if (masterBuffer[1] == 'B') // if the second character of every line
 is 'B', 
 { // the line is loaded into a long trade
@@ -361,8 +377,10 @@ masterBuffer.clear();
 getline(inputFile,masterBuffer);
 }
 }
+
 inputFile.close();
 outputFile.close();
+
 system("pause");
 return 0;
 }
